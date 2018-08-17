@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Preguntas</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-right">
+            <%= link_to '<strong>Hacer una pregunta</strong>'.html_safe, new_question_path, class:'btn btn-primary' %>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table">
+
+                <tbody>
+                    <% @questions.each do |question| %>
+                        <tr>
+                            <td class="text-center">
+                                <div>
+                                    <h3>1</h3>
+                                    <p>Votos</p>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <h3>1</h3>
+                                <p>Respuestas</p>
+                            </td>
+                            <td class="text-center">
+
+                                <p style="margin: 30px 0px;">
+                                    <%= link_to question.title, question, class:'custom-color'%>
+                                </p>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <% end %>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
