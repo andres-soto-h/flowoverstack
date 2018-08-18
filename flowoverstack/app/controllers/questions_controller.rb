@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
 
+before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @questions = Question.all
   end
@@ -15,9 +17,9 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
-      redirect_to questions_path #, notice:'El producto se creó de manera exitosa.'
+      redirect_to questions_path, notice: 'Pregunta añadida correctamente.'
     else
-      render :new
+      redirect_to new_question_path, alert: 'No se pudo crear la pregunta, debe ingresar título y descripción.'
     end
   end
 
