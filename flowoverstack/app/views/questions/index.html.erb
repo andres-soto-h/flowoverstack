@@ -1,12 +1,12 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 col-md-offset-1">
             <h1>Preguntas</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 text-right">
+        <div class="col-md-10 col-md-offset-1 text-right">
             <%= link_to '<strong>Hacer una pregunta</strong>'.html_safe, new_question_path, class:'btn btn-primary' %>
         </div>
     </div>
@@ -14,7 +14,7 @@
     <br>
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <table class="table">
 
                 <tbody>
@@ -32,7 +32,7 @@
                             </td>
                             <td class="text-center">
 
-                                <p style="margin: 30px 0px;">
+                                <p class="link-center">
                                     <%= link_to question.title, question, class:'custom-color'%>
                                 </p>
 
