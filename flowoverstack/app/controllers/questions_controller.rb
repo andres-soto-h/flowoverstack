@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
 before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @questions = Question.all
+    @questions = Question.all.order(created_at: :desc)
   end
 
   def show
@@ -11,11 +11,14 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def new
-    @question = Question.new
+    user=current_user
+    @question = user.questions.new()
   end
 
   def create
-    @question = Question.new(question_params)
+    user=current_user
+    @question = user.questions.new(question_params)
+
     if @question.save
       redirect_to questions_path, notice: 'Pregunta añadida correctamente.'
     else
