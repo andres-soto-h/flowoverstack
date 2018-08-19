@@ -37,7 +37,7 @@
                                  
                                     <%= question.user.email %> hace
                                     <% elapsed=Date.today.to_time-question.created_at.to_time%>
-                                    <%# binding.pry %>
+
                                     <% if (elapsed.to_i/(60*60*24)) >30 %>
                                         <%= (elapsed.to_i/(60*60*24))/30 %> meses
                                     <% elsif (elapsed.to_i/(60*60*24)) <1 %>
