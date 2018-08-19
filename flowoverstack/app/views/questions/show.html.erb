@@ -1,6 +1,5 @@
 <div class="container-fluid">
 
-
     <div class="row justify-content-md-center">
 
         <div class="col-md-8 col-md-offset-2">
@@ -25,11 +24,23 @@
                         <%= @question.body %>
                     </p>
 
+  
+                <div class="row">
+                    
+                        <hr></hr>                    
+                
+                        <hr></hr>
+        
+                    <textarea name="comment" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
+                    <br>
+                    <div class="text-right">
+                        <%= link_to '<strong>Comentar</strong>'.html_safe, new_question_path, class:'btn btn-primary' %>
+                    </div>
+                </div>
 
                 </div>
 
             </div>
-
 
         </div>
 

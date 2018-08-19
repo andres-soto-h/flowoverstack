@@ -21,19 +21,30 @@
                     <% @questions.each do |question| %>
                         <tr>
                             <td class="text-center">
-                                <div>
-                                    <h3>1</h3>
-                                    <p>Votos</p>
-                                </div>
+                                <h4>1</h4>
+                                <p>Votos</p>
                             </td>
                             <td class="text-center">
-                                <h3>1</h3>
+                                <h4>1</h4>
                                 <p>Respuestas</p>
                             </td>
-                            <td class="text-center">
+                            <td class="text-left link-center">
 
-                                <p class="link-center">
+                                <h4>
                                     <%= link_to question.title, question, class:'custom-color'%>
+                                </h4>
+                                <p>Preguntó
+                                 
+                                    <%= question.user.email %> hace
+                                    <% elapsed=Date.today.to_time-question.created_at.to_time%>
+                                    <%# binding.pry %>
+                                    <% if (elapsed.to_i/(60*60*24)) >30 %>
+                                        <%= (elapsed.to_i/(60*60*24))/30 %> meses
+                                    <% elsif (elapsed.to_i/(60*60*24)) <1 %>
+                                        <%= (elapsed.to_i/(60*60)) %> horas
+                                    <% else %>
+                                        <%= (elapsed.to_i/(60*60*24)) %> dias
+                                    <% end %>
                                 </p>
 
                             </td>
