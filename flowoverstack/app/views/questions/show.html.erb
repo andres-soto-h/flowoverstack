@@ -11,32 +11,37 @@
             <div class="row justify-content-md-right">
 
                 <div class="col-md-1 text-center">
-
                     <div>
-                        <div><span class="glyphicon glyphicon-triangle-top"></span></div>
+                        <div>
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                        </div>
                         <p>0</p>
                     </div>
-
                 </div>
-                <div class="col-md-11">
 
+                <div class="col-md-11">
                     <p>
                         <%= @question.body %>
                     </p>
-
-  
-                <div class="row">
-                    
-                        <hr></hr>                    
-                
+                    <div class="row">
                         <hr></hr>
-        
-                    <textarea name="comment" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
-                    <br>
-                    <div class="text-right">
-                        <%= link_to '<strong>Comentar</strong>'.html_safe, new_question_path, class:'btn btn-primary' %>
+                        <% @question.comments.each do |c| %>
+                            <p><%= c.text %></p>
+                            <hr></hr>
+                        <% end %>
+
+                        <form form action="/comments/create" method="post">
+                            <div class="form-group">
+                                <input type="hidden" name="id" value=<%= @question.id %>>
+                                <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
+                                <br>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
-                </div>
 
                 </div>
 
@@ -44,5 +49,4 @@
 
         </div>
 
-    </div>
 </div>
