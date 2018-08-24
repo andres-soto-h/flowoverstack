@@ -2,14 +2,20 @@ class CommentsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def create
-    @question = Question.find(params[:id])
-    Comment.create(commentable: @question, text: params[:comment])
+    
+    if params[:type]=='Question'
+      @res = Question.find(params[:id])
+    else
+      @res = Answer.find(params[:id])
+    end
+
+    Comment.create(commentable: @res, text: params[:comment])
     redirect_to question_path(params[:id])
-end
+  end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text, :id)
+    params.require(:comment).permit(:text, :id, :type)
   end
 end
