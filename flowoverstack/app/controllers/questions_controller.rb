@@ -6,7 +6,10 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @question = Question.find(params[:id])
+    #@answer = @question.answers
+    @answer = Answer.joins(:questions).where(questions: {id: params[:id]})
   end
 
   def new
