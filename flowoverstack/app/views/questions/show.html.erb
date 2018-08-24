@@ -21,32 +21,122 @@
 
                 <div class="col-md-11">
                     <p>
-                        <%= @question.body %>
+                        <%= @markdown.render(@question.body).html_safe %>
                     </p>
+
                     <div class="row">
                         <hr></hr>
                         <% @question.comments.each do |c| %>
-                            <p><%= c.text %></p>
+                            <p>
+                                <%= c.text %>
+                            </p>
                             <hr></hr>
-                        <% end %>
+                            <% end %>
 
-                        <form form action="/comments/create" method="post">
-                            <div class="form-group">
-                                <input type="hidden" name="id" value=<%= @question.id %>>
-                                <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
-                                <br>
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary">Comentar</button>
-                                </div>
-                            </div>
-                        </form>
+                                <form form action="/comments/create" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" name="id" value=<%= @question.id %>>
+                                        <input type="hidden" name="type" value=<% @question %>>
+                                        <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
+                                        <br>
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-primary">Comentar</button>
+                                        </div>
+                                    </div>
+                                </form>
 
                     </div>
+
 
                 </div>
 
             </div>
 
         </div>
+
+
+
+
+    </div>
+
+
+    <div class="row justify-content-md-right">
+
+
+        <div class="col-md-8 col-md-offset-2">
+            <h3>2 Respuesta(s)</h3>
+            <hr></hr>
+
+            <div class="row justify-content-md-right">
+
+                <%@answer.each do |ans|%>
+
+                    <div class="col-md-1 text-center">
+                        <div>
+                            <div>
+                                <span class="glyphicon glyphicon-triangle-top"></span>
+                            </div>
+                            <p>0</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-11">
+
+                        <p>
+                            <%= @markdown.render(ans.description).html_safe %>
+                        </p>
+
+                        <div class="row">
+                            <hr></hr>
+                            <% @answer.comments.each do |c| %>
+                                <p>
+                                    <%= c.text %>
+                                </p>
+                                <hr></hr>
+                                <% end %>
+
+                                    <form form action="/comments/create" method="post">
+                                        <div class="form-group">
+                                            <input type="hidden" name="id" value=<%= @answer.id %>>
+                                            <input type="hidden" name="type" value=<% @answer %>>
+                                            <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
+                                            <br>
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary">Comentar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                        </div>
+
+                    </div>
+
+                    <% end %>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h3>Tu Respuesta</h3>
+
+                    <form form action="/answers/create" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value=<%= @question.id %>>
+                            <textarea name="description" class="form-control" rows="5" placeholder="Agrega una respuesta."></textarea>
+                            <br>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">Responder</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
 </div>
