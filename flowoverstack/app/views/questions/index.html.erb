@@ -25,7 +25,7 @@
                                 <p>Votos</p>
                             </td>
                             <td class="text-center">
-                                <h4>1</h4>
+                                <h4><%= question.answers.count %></h4>
                                 <p>Respuestas</p>
                             </td>
                             <td class="text-left link-center">
@@ -36,7 +36,8 @@
                                 <p>Preguntó
                                  
                                     <%= question.user.email %> hace
-                                    <% elapsed=Date.today.to_time-question.created_at.to_time%>
+
+                                    <% elapsed=Time.now.to_time-question.created_at.to_time%>
 
                                     <% if (elapsed.to_i/(60*60*24)) >30 %>
                                         <%= (elapsed.to_i/(60*60*24))/30 %> meses
