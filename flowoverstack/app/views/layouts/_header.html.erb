@@ -41,11 +41,14 @@
               <%end%>
 
                 <li>
-                  <form class="navbar-form navbar-right">
+
+                  <%= form_tag questions_index_path, class:'navbar-form navbar-left', method: :get do %>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Search">
+                      <%= text_field_tag :terms, params[:terms], class: "form-control", placeholder: "Buscar..." %>
                     </div>
-                  </form>
+
+                    <%= submit_tag 'Buscar', name: nil, class: "btn btn-default btn-md" %>
+                  <% end %>
 
                 </li>
 
