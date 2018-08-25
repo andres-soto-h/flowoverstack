@@ -2,14 +2,19 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @questions = Question.all.order(created_at: :desc)
+
+    if params[:terms].present?
+      @questions = Question.where("title LIKE (?) OR body LIKE (?)", "%#{params[:terms]}%", "%#{params[:terms]}%")
+    else
+      @questions = Question.all.order(created_at: :desc)
+    end
+
   end
 
   def show
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @question = Question.find(params[:id])
-    #@answer = @question.answers
-    @answer = Answer.joins(:questions).where(questions: {id: params[:id]})
+    @answer = Answer.all.where(question_id: params[:id])
   end
 
   def new
