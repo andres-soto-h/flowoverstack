@@ -10,11 +10,12 @@ class AnswersController < ApplicationController
     def create
         user = current_user
         #binding.pry
-    
-        @answer=Answer.create description: params[:description], user: user, question: params[:id]
+
+        @question = Question.find(params[:question_id])
+        @answer=@question.answers.create(answer_params)
 
         if @answer.save
-          redirect_to questions_path, notice: 'Respuesta añadida correctamente.'
+          redirect_to question_path(params[:question_id]), notice: 'Respuesta añadida correctamente.'
         else
           redirect_to questions_path, alert: 'No se pudo crear la respuesta.'
         end
@@ -24,7 +25,7 @@ class AnswersController < ApplicationController
   private
   
   def answer_params
-    params.require(:answer).permit(:description, :id)
+    params.permit(:description, :question_id)
   end
 
 end
