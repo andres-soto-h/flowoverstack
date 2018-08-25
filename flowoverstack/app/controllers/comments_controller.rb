@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
 
   def create
     
+
+
     if params[:type]=='Question'
       @res = Question.find(params[:id])
     else
@@ -10,12 +12,12 @@ class CommentsController < ApplicationController
     end
 
     Comment.create(commentable: @res, text: params[:comment])
-    redirect_to question_path(params[:id])
+    redirect_to question_path(params[:val_id])
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:text, :id, :type)
+    params.require(:comment).permit(:text, :id, :type, :val_id)
   end
 end
