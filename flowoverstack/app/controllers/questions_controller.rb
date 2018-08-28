@@ -1,14 +1,14 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
-  def index
+  protect_from_forgery with: :null_session
 
+  def index
     if params[:terms].present?
-      @questions = Question.where("title LIKE (?) OR body LIKE (?)", "%#{params[:terms]}%", "%#{params[:terms]}%")
+      @questions = Question.where('title LIKE (?) OR body LIKE (?)', "%#{params[:terms]}%", "%#{params[:terms]}%")
     else
       @questions = Question.all.order(created_at: :desc)
     end
-
   end
 
   def show
@@ -39,9 +39,22 @@ class QuestionsController < ApplicationController
 
   def destroy; end
 
+  def vote_up
+    user = User.find(params[:user_id])
+    @question = Question.find(params[:question_id])
+
+    if !user.voted_on?(@question)
+      user.vote_exclusively_for(@question)
+      redirect_to question_path(params[:question_id])
+    else
+      user.unvote_for(@question)
+      redirect_to question_path(params[:question_id])
+    end
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :user_id, :question_id)
   end
 end
