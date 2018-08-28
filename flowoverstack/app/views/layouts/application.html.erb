@@ -20,11 +20,7 @@
 
 <body>
 
-
-
   <%= render 'layouts/header' %>
-
-
 
     <% if notice %>
       <div class="col-md-6 col-md-offset-3 alert alert-success alert-dismissible">
@@ -33,14 +29,24 @@
       </div>
       <% end %>
 
-      <% if alert %>
+        <% if alert %>
           <div class=" col-md-6 col-md-offset-3 alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <%= alert %>
           </div>
-      <% end %>
+          <% end %>
 
-      <%=yield %>
+            <%=yield %>
+
+
+
+            <nav class="navbar-wrapper navbar-inverse navbar-fixed-bottom">
+              <div class="container-fluid">
+                <p class="navbar-text">&copy; 2018 by Andrés Soto.</p>
+                <a href="https://github.com/andres-soto-h"" class="btn navbar-btn btn-default">GitHub</a> 
+              </div>
+            </nav>
+
 
 </body>
 
