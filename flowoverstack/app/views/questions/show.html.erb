@@ -13,9 +13,13 @@
                 <div class="col-md-1 text-center">
                     <div>
                         <div>
+                        <% if user_signed_in? %>
+                            <%= link_to '<span class="glyphicon glyphicon-triangle-top"></span>'.html_safe, vote_up_path(@question.id, current_user.id), method: 'POST'%>
+                        <% else %>
                             <span class="glyphicon glyphicon-triangle-top"></span>
+                        <% end %>
                         </div>
-                        <p>0</p>
+                        <p><%= @question.votes.count %></p>
                     </div>
                 </div>
 
@@ -32,11 +36,12 @@
                             </p>
                             <hr></hr>
                             <% end %>
-
+                            <% if user_signed_in? %>
                                 <form form action="/comments/create" method="post">
                                     <div class="form-group">
                                         <input type="hidden" name="id" value=<%= @question.id %>>
-                                        <input type="hidden" name="type" value=<% @question %>>
+                                        <input type="hidden" name="type" value=<%= "Question" %>>
+                                        <input type="hidden" name="val_id" value=<%=  @question.id  %>>
                                         <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
                                         <br>
                                         <div class="text-right">
@@ -44,7 +49,7 @@
                                         </div>
                                     </div>
                                 </form>
-
+                            <% end %>
                     </div>
 
 
@@ -55,16 +60,12 @@
         </div>
 
 
-
-
     </div>
-
 
     <div class="row justify-content-md-right">
 
-
         <div class="col-md-8 col-md-offset-2">
-            <h3>2 Respuesta(s)</h3>
+            <h3><%= @answer.count %> Respuesta(s)</h3>
             <hr></hr>
 
             <div class="row justify-content-md-right">
@@ -74,9 +75,13 @@
                     <div class="col-md-1 text-center">
                         <div>
                             <div>
+                            <% if user_signed_in? %>
+                                <%= link_to '<span class="glyphicon glyphicon-triangle-top"></span>'.html_safe, ans_vote_up_path(ans.id, current_user.id), method: 'POST'%>
+                            <% else %>
                                 <span class="glyphicon glyphicon-triangle-top"></span>
+                            <% end %>
                             </div>
-                            <p>0</p>
+                            <p> <%= ans.votes.count %> </p>
                         </div>
                     </div>
 
@@ -89,17 +94,20 @@
 
                         <div class="row">
                             <hr></hr>
-                            <% @answer.comments.each do |c| %>
+                           
+                            <% ans.comments.each do |c| %>
                                 <p>
                                     <%= c.text %>
                                 </p>
                                 <hr></hr>
                                 <% end %>
 
+                                <% if user_signed_in? %>
                                     <form form action="/comments/create" method="post">
                                         <div class="form-group">
-                                            <input type="hidden" name="id" value=<%= @answer.id %>>
-                                            <input type="hidden" name="type" value=<% @answer %>>
+                                            <input type="hidden" name="id" value=<%= ans.id %>>
+                                            <input type="hidden" name="type" value=<%= "Answer" %>>
+                                            <input type="hidden" name="val_id" value=<%=  @question.id  %>>
                                             <textarea name="comment" name="text" class="form-control" rows="2" placeholder="Agrega un comentario."></textarea>
                                             <br>
                                             <div class="text-right">
@@ -107,7 +115,7 @@
                                             </div>
                                         </div>
                                     </form>
-
+                                <% end %>
                         </div>
 
                     </div>
@@ -120,18 +128,20 @@
 
                 <div class="col-md-12">
                     <h3>Tu Respuesta</h3>
-
-                    <form form action="/answers/create" method="post">
-                        <div class="form-group">
-                            <input type="hidden" name="id" value=<%= @question.id %>>
-                            <textarea name="description" class="form-control" rows="5" placeholder="Agrega una respuesta."></textarea>
-                            <br>
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-primary">Responder</button>
+                    <% if user_signed_in? %>
+                        <form form action="/answers/create" method="post">
+                            <div class="form-group">
+                                <input type="hidden" name="question_id" value=<%= @question.id %>>
+                                <textarea name="description" class="form-control" rows="5" placeholder="Agrega una respuesta."></textarea>
+                                <br>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Responder</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-
+                        </form>
+                    <%else%>
+                        <div class="well">Debes ingresar para responder una pregunta.</div>
+                    <% end %>
                 </div>
 
             </div>
