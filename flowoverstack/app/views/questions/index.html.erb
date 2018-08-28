@@ -21,7 +21,7 @@
                     <% @questions.each do |question| %>
                         <tr>
                             <td class="text-center">
-                                <h4>1</h4>
+                                <h4><%= question.votes.count %></h4>
                                 <p>Votos</p>
                             </td>
                             <td class="text-center">
