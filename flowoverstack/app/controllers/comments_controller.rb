@@ -2,9 +2,6 @@ class CommentsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def create
-    
-
-
     if params[:type]=='Question'
       @res = Question.find(params[:id])
     else
