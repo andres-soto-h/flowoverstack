@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get 'questions/index'
   root 'questions#index'
   resources :questions
-  #resources :answers
   post 'answers/create'
-
   post 'comments/create'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post 'questions/:question_id/:user_id', to: 'questions#vote_up', as: 'vote_up'
+  post 'answers/:answer_id/:user_id', to: 'answers#ans_vote_up', as: 'ans_vote_up'
+
 end
