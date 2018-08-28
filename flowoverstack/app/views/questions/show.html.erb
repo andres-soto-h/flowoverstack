@@ -13,9 +13,11 @@
                 <div class="col-md-1 text-center">
                     <div>
                         <div>
-
-                        <%= link_to '<span class="glyphicon glyphicon-triangle-top"></span>'.html_safe, vote_up_path(@question.id, current_user.id), method: 'POST'%>
-
+                        <% if user_signed_in? %>
+                            <%= link_to '<span class="glyphicon glyphicon-triangle-top"></span>'.html_safe, vote_up_path(@question.id, current_user.id), method: 'POST'%>
+                        <% else %>
+                            <span class="glyphicon glyphicon-triangle-top"></span>
+                        <% end %>
                         </div>
                         <p><%= @question.votes.count %></p>
                     </div>
@@ -73,10 +75,11 @@
                     <div class="col-md-1 text-center">
                         <div>
                             <div>
-                            
-
+                            <% if user_signed_in? %>
                                 <%= link_to '<span class="glyphicon glyphicon-triangle-top"></span>'.html_safe, ans_vote_up_path(ans.id, current_user.id), method: 'POST'%>
-
+                            <% else %>
+                                <span class="glyphicon glyphicon-triangle-top"></span>
+                            <% end %>
                             </div>
                             <p> <%= ans.votes.count %> </p>
                         </div>
